@@ -6,28 +6,43 @@ export const metadata: Metadata = {
   title: 'Dalani Heating & Air Conditioning | San Diego HVAC',
   description: 'Owner-operated heating and air conditioning service in San Diego. Get a clear, no-pressure estimate for your home.',
   generator: 'v0.app',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'Dalani Heating & Air Conditioning',
+    title: 'Dalani Heating & Air Conditioning | San Diego HVAC',
+    description: 'Owner-operated heating and air conditioning service in San Diego. Get a clear, no-pressure estimate for your home.',
+    images: [{ url: '/hvac-hero.png', width: 1200, height: 630, alt: 'Dalani Heating & Air Conditioning serving San Diego homes' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Dalani Heating & Air Conditioning | San Diego HVAC',
+    description: 'Owner-operated heating and air conditioning service in San Diego.',
+    images: ['/hvac-hero.png'],
+  },
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
+        url: '/dalani-icon.svg',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/icon-dark-32x32.png',
+        url: '/dalani-icon.svg',
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/icon.svg',
+        url: '/dalani-icon.svg',
         type: 'image/svg+xml',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/dalani-icon.svg',
   },
 }
 
 export const viewport: Viewport = {
   colorScheme: 'light',
-  themeColor: [{ color: '#f2f3ed' }],
+  themeColor: [{ color: '#fffaf7' }],
 }
 
 export default function RootLayout({

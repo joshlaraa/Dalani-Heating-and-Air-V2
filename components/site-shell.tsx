@@ -1,19 +1,63 @@
+'use client'
+
 import Link from 'next/link'
-import { ArrowUpRight, Phone } from 'lucide-react'
+import { ArrowUpRight, Menu, Phone, X } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export function Header() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 24)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 760) setMobileOpen(false)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const closeMobileMenu = () => setMobileOpen(false)
+
   return (
-    <header className="site-header">
+    <header className={`site-header${isScrolled ? ' is-scrolled' : ''}`}>
       <Link className="brand" href="/" aria-label="Dalani Heating & Air Conditioning home">
-        <span className="brand-mark">D</span>
+        <img className="brand-logo" src="/dalani-icon.svg" alt="" />
         <span>Dalani<br />Heating & Air Conditioning</span>
       </Link>
       <nav className="main-nav" aria-label="Primary navigation">
+        <Link href="/">Home</Link>
         <Link href="/about">About</Link>
         <Link href="/services">Services</Link>
         <Link href="/contact">Contact</Link>
       </nav>
       <Link className="header-cta" href="/contact">Get an estimate <ArrowUpRight aria-hidden="true" /></Link>
+      <button className="mobile-menu-trigger" type="button" aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)}>
+        {mobileOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+      </button>
+      {mobileOpen && <div className="mobile-menu-backdrop" aria-hidden="true" onClick={closeMobileMenu} />}
+      <aside className={`mobile-menu${mobileOpen ? ' is-open' : ''}`} aria-label="Mobile navigation" aria-hidden={!mobileOpen}>
+        <div className="mobile-menu-header">
+          <span>Menu</span>
+          <button type="button" aria-label="Close navigation menu" onClick={closeMobileMenu}><X aria-hidden="true" /></button>
+        </div>
+        <nav>
+          <Link href="/" onClick={closeMobileMenu}>Home</Link>
+          <Link href="/about" onClick={closeMobileMenu}>About</Link>
+          <Link href="/services" onClick={closeMobileMenu}>Services</Link>
+          <Link href="/contact" onClick={closeMobileMenu}>Contact</Link>
+        </nav>
+        <div className="mobile-menu-footer">
+          <a href="tel:6195550148"><Phone aria-hidden="true" /> Call now</a>
+          <Link className="mobile-menu-cta" href="/contact" onClick={closeMobileMenu}>Get an estimate <ArrowUpRight aria-hidden="true" /></Link>
+        </div>
+      </aside>
     </header>
   )
 }
