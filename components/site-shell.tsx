@@ -37,12 +37,12 @@ export function Header() {
         <Link href="/services">Services</Link>
         <Link href="/contact">Contact</Link>
       </nav>
-      <Link className="header-cta" href="/contact">Get an estimate <ArrowUpRight aria-hidden="true" /></Link>
-      <button className="mobile-menu-trigger" type="button" aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)}>
+      <Link className="header-cta" href="/#estimate">Get an estimate <ArrowUpRight aria-hidden="true" /></Link>
+      <button className="mobile-menu-trigger" type="button" aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => setMobileOpen(!mobileOpen)}>
         {mobileOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
       </button>
       {mobileOpen && <div className="mobile-menu-backdrop" aria-hidden="true" onClick={closeMobileMenu} />}
-      <aside className={`mobile-menu${mobileOpen ? ' is-open' : ''}`} aria-label="Mobile navigation" aria-hidden={!mobileOpen}>
+      <aside id="mobile-navigation" className={`mobile-menu${mobileOpen ? ' is-open' : ''}`} aria-label="Mobile navigation" aria-hidden={!mobileOpen} inert={!mobileOpen ? true : undefined}>
         <div className="mobile-menu-header">
           <span>Menu</span>
           <button type="button" aria-label="Close navigation menu" onClick={closeMobileMenu}><X aria-hidden="true" /></button>
@@ -55,7 +55,7 @@ export function Header() {
         </nav>
         <div className="mobile-menu-footer">
           <a href="tel:6195550148"><Phone aria-hidden="true" /> Call now</a>
-          <Link className="mobile-menu-cta" href="/contact" onClick={closeMobileMenu}>Get an estimate <ArrowUpRight aria-hidden="true" /></Link>
+          <Link className="mobile-menu-cta" href="/#estimate" onClick={closeMobileMenu}>Get an estimate <ArrowUpRight aria-hidden="true" /></Link>
         </div>
       </aside>
     </header>
@@ -80,7 +80,7 @@ export function Footer() {
         <Link href="/about">About us</Link>
         <Link href="/services">Services</Link>
         <Link href="/contact">Contact</Link>
-        <Link href="/contact">Request an estimate</Link>
+        <Link href="/#estimate">Request an estimate</Link>
       </nav>
       <nav className="footer-column" aria-label="Footer navigation">
         <p className="footer-label">Navigation</p>
@@ -98,7 +98,7 @@ export function Footer() {
 }
 
 export function EstimateCta({ eyebrow = 'The next step', title = 'Let\'s take a look.', text = 'Tell us what is going on and we\'ll come by, take a look, and give you a clear estimate before any work begins.' }: { eyebrow?: string; title?: string; text?: string }) {
-  return <section className="estimate-cta container-wide"><div><p className="eyebrow">{eyebrow}</p><h2>{title}</h2><p>{text}</p></div><Link className="button button-dark" href="/contact">Request an estimate <ArrowUpRight aria-hidden="true" /></Link></section>
+  return <section className="estimate-cta container-wide"><div><p className="eyebrow">{eyebrow}</p><h2>{title}</h2><p>{text}</p></div><Link className="button button-dark" href="/#estimate">Request an estimate <ArrowUpRight aria-hidden="true" /></Link></section>
 }
 
 export function FaqSection() {
@@ -112,5 +112,5 @@ export function FaqSection() {
 }
 
 export function Shell({ children }: { children: React.ReactNode }) {
-  return <><Header />{children}<Footer /></>
+  return <><a className="skip-link" href="#main-content">Skip to content</a><Header /><div id="main-content">{children}</div><Footer /></>
 }

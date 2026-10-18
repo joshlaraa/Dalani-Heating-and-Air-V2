@@ -163,6 +163,64 @@ body { font-family: Arial, Helvetica, sans-serif; background: var(--paper); }
 .contact-form label { color: var(--ink); font-weight: 700; }
 @media (max-width: 760px) { .site-footer { grid-template-columns: 1fr 1fr; gap: 40px 24px; } .footer-brand { grid-column: 1 / -1; } .footer-services { grid-column: 1 / -1; } }
 
+/* Estimate card beneath the hero */
+.estimate-section { position: relative; z-index: 1; display: grid; grid-template-columns: .72fr 1.28fr; gap: 7vw; margin-top: -52px; padding: 34px clamp(24px, 4vw, 58px) 38px; border: 1px solid var(--line); border-radius: 10px; background: #fff; box-shadow: 0 18px 42px rgba(45, 41, 40, .12); scroll-margin-top: 72px; }
+.estimate-section-heading h2 { margin: 0 0 16px; font-size: clamp(32px, 4vw, 54px); line-height: 1; letter-spacing: -.05em; }
+.estimate-section-heading > p:last-child { max-width: 300px; color: var(--muted); line-height: 1.55; }
+.estimate-form { display: grid; gap: 20px; }
+.estimate-form-intro { border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+.estimate-form-kicker { margin: 0 0 6px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.estimate-form-intro h3 { margin: 0 0 5px; font-size: 21px; letter-spacing: -.03em; }
+.estimate-form-intro > p:last-child { margin: 0; color: var(--muted); font-size: 13px; }
+.estimate-form-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.estimate-form label { display: grid; gap: 7px; color: var(--ink); font-size: 12px; font-weight: 700; }
+.estimate-form input { width: 100%; border: 1px solid var(--line); border-radius: 3px; background: #fff; color: var(--ink); font: inherit; padding: 11px; outline: none; }
+.estimate-form input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(242, 112, 89, .14); }
+.service-select-label { position: relative; display: grid; gap: 7px; color: var(--ink); font-size: 12px; font-weight: 700; }
+.service-select-trigger { display: flex; width: 100%; align-items: center; justify-content: space-between; border: 1px solid var(--line); border-radius: 3px; background: #fff; color: #a49b98; font: inherit; padding: 11px; text-align: left; cursor: pointer; }
+.service-select-trigger.has-value { color: var(--ink); }
+.service-select-trigger:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(242, 112, 89, .14); outline: none; }
+.service-select-trigger svg { width: 15px; height: 15px; color: var(--muted); }
+.service-select-menu { position: absolute; right: 0; left: 0; z-index: 4; display: grid; gap: 2px; margin-top: 5px; padding: 5px; border: 1px solid var(--line); border-radius: 5px; background: #fff; box-shadow: 0 12px 24px rgba(45, 41, 40, .14); }
+.service-select-option { border: 0; border-radius: 3px; background: transparent; color: var(--ink); font: inherit; padding: 10px; text-align: left; cursor: pointer; }
+.service-select-option:hover, .service-select-option[aria-selected="true"] { background: #e5e7eb; color: var(--ink); }
+.estimate-form-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.estimate-form-footer p { margin: 0; color: var(--muted); font-size: 11px; }
+.estimate-form-footer button, .estimate-form-success button { border: 0; cursor: pointer; }
+.estimate-form-success { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 14px; min-height: 230px; }
+.estimate-form-success > svg { width: 42px; height: 42px; color: var(--accent); }
+.estimate-form-success h3, .estimate-form-success p { margin: 0; }
+.estimate-form-success p { color: var(--muted); line-height: 1.55; }
+.estimate-form-success a { color: var(--ink); font-weight: 700; text-decoration: underline; }
+.button-outline-dark { border: 1px solid var(--line) !important; background: transparent; color: var(--ink); }
+@media (max-width: 760px) {
+  .estimate-section { grid-template-columns: 1fr; gap: 34px; margin-top: -28px; padding: 28px 20px 32px; }
+  .estimate-form-fields { grid-template-columns: 1fr; }
+  .estimate-form-footer { align-items: stretch; flex-direction: column; }
+  .estimate-form-footer .button { width: 100%; }
+}
+
+/* Application-wide interaction and type consistency */
+:root { --control-height: 44px; --hover-gray: #f3f4f6; }
+h1, h2, h3, h4, h5, h6 { font-family: Arial, Helvetica, sans-serif; text-wrap: balance; }
+.button, .header-cta { min-height: var(--control-height); gap: 10px; touch-action: manipulation; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 3px solid rgba(242, 112, 89, .35); outline-offset: 3px; }
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 100; padding: 10px 14px; border-radius: 4px; background: var(--ink); color: #fff; transform: translateY(-150%); transition: transform .2s ease; }
+.skip-link:focus { transform: translateY(0); }
+.estimate-form input, .estimate-form select, .service-select-trigger, .contact-form input, .contact-form textarea { font-size: 14px; }
+.estimate-form input, .service-select-trigger, .contact-form input { min-height: var(--control-height); }
+.estimate-form-footer .button, .contact-form .button { min-height: var(--control-height); }
+.contact-form-success { display: grid; gap: 14px; align-content: start; padding: 30px; border: 1px solid var(--line); background: #fff; }
+.contact-form-success > svg { width: 42px; height: 42px; color: var(--accent); }
+.contact-form-success h2, .contact-form-success p { margin: 0; }
+.contact-form-success p { color: var(--muted); line-height: 1.55; }
+.contact-form-success a { color: var(--ink); font-weight: 700; text-decoration: underline; }
+.contact-form input:focus-visible, .contact-form textarea:focus-visible, .estimate-form input:focus-visible, .service-select-trigger:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(242, 112, 89, .14); outline: none; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
 /* Coral and coastal palette */
 :root {
   --ink: #2d2928;
@@ -363,7 +421,7 @@ body:has(.hero) .site-header.is-scrolled .header-cta {
   font-weight: 700;
   white-space: nowrap;
 }
-.service-row-cta:hover { background: #f1f1f1; }
+.service-row-cta:hover { background: #f3f4f6; }
 .service-row-cta svg {
   width: 16px;
   height: 16px;
@@ -469,7 +527,7 @@ body:has(.hero) .site-header.is-scrolled .header-cta {
   }
   .mobile-menu nav a:hover,
   .mobile-menu nav a:focus-visible {
-    background: #f1f1f1;
+    background: #f3f4f6;
     color: var(--ink);
   }
   .mobile-menu-footer {

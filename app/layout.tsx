@@ -6,20 +6,20 @@ export const metadata: Metadata = {
   title: 'Dalani Heating & Air Conditioning | San Diego HVAC',
   description: 'Owner-operated heating and air conditioning service in San Diego. Get a clear, no-pressure estimate for your home.',
   generator: 'v0.app',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dalani-heating-and-air-v2.vercel.app'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
     siteName: 'Dalani Heating & Air Conditioning',
     title: 'Dalani Heating & Air Conditioning | San Diego HVAC',
     description: 'Owner-operated heating and air conditioning service in San Diego. Get a clear, no-pressure estimate for your home.',
-    images: [{ url: '/hvac-hero.png', width: 1200, height: 630, alt: 'Dalani Heating & Air Conditioning serving San Diego homes' }],
+    images: [{ url: '/og-preview.png', width: 1200, height: 630, alt: 'Dalani Heating & Air Conditioning serving San Diego homes' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Dalani Heating & Air Conditioning | San Diego HVAC',
     description: 'Owner-operated heating and air conditioning service in San Diego.',
-    images: ['/hvac-hero.png'],
+    images: ['/og-preview.png'],
   },
   icons: {
     icon: [
