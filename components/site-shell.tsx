@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { ArrowUpRight, Menu, Phone, X } from 'lucide-react'
+import { FaFacebookF, FaGoogle, FaInstagram, FaYelp } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
 
 export function Header() {
@@ -62,6 +63,55 @@ export function Header() {
   )
 }
 
+function SocialIcon({ name }: { name: 'Google' | 'Yelp' | 'Instagram' | 'Facebook' }) {
+  if (name === 'Google') return <FaGoogle aria-hidden="true" />
+  if (name === 'Yelp') return <FaYelp aria-hidden="true" />
+  if (name === 'Instagram') return <FaInstagram aria-hidden="true" />
+  return <FaFacebookF aria-hidden="true" />
+}
+
+export function SocialLinks() {
+  const socialNetworks = ['Google', 'Yelp', 'Instagram', 'Facebook'] as const
+
+  return (
+    <div className="social-links" aria-label="Social media">
+      {socialNetworks.map((name) => (
+        <span className="social-link" title={name} aria-label={name} role="img" key={name}>
+          <SocialIcon name={name} />
+        </span>
+      ))}
+    </div>
+  )
+}
+
+export function OperationalHours() {
+  const [today, setToday] = useState<number | null>(null)
+  const hours = [
+    ['Monday', '8am–5pm', 1],
+    ['Tuesday', '8am–5pm', 2],
+    ['Wednesday', '8am–5pm', 3],
+    ['Thursday', '8am–5pm', 4],
+    ['Friday', '8am–5pm', 5],
+    ['Saturday', '8am–5pm', 6],
+    ['Sunday', 'Closed', 0],
+  ] as const
+
+  useEffect(() => {
+    setToday(new Date().getDay())
+  }, [])
+
+  return (
+    <div className="operational-hours" aria-label="Operational hours">
+      {hours.map(([day, time, dayIndex]) => (
+        <div className={`hours-row${today === dayIndex ? ' is-today' : ''}`} aria-current={today === dayIndex ? 'date' : undefined} key={day}>
+          <span>{day}</span>
+          <span>{time}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export function Footer() {
   const services = ['Air Conditioning', 'Heating', 'Mini Split Systems', 'Quiet Cool Installation', 'Service & Repairs', 'New Installations']
 
@@ -69,11 +119,12 @@ export function Footer() {
     <footer className="site-footer">
       <div className="footer-brand">
         <p className="eyebrow">Dalani Heating & Air Conditioning</p>
-        <h2>Comfort, made personal.</h2>
+        <h2>Reliable heating &amp; cooling.</h2>
         <div className="footer-contact">
           <a href="tel:6195550148"><Phone aria-hidden="true" /> (619) 555-0148</a>
-          <p>Serving San Diego County<br />Mon–Sat · 7am–7pm</p>
+          <p>Serving San Diego County<br />Mon–Sat · 8am–5pm<br />Sunday · Closed</p>
         </div>
+        <SocialLinks />
       </div>
       <nav className="footer-column" aria-label="Footer menu">
         <p className="footer-label">Menu</p>
