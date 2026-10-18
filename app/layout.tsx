@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     siteName: 'Dalani Heating & Air Conditioning',
     title: 'Dalani Heating & Air Conditioning | San Diego HVAC',
     description: 'Owner-operated heating and air conditioning service in San Diego. Get a clear, no-pressure estimate for your home.',
-    images: [{ url: '/og-preview.png', width: 1200, height: 630, alt: 'Dalani Heating & Air Conditioning serving San Diego homes' }],
+    images: [{ url: 'https://dalani-heating-and-air-v2.vercel.app/og-preview.png', width: 1200, height: 630, alt: 'Dalani Heating & Air Conditioning serving San Diego homes' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Dalani Heating & Air Conditioning | San Diego HVAC',
     description: 'Owner-operated heating and air conditioning service in San Diego.',
-    images: ['/og-preview.png'],
+    images: ['https://dalani-heating-and-air-v2.vercel.app/og-preview.png'],
   },
   icons: {
     icon: [
