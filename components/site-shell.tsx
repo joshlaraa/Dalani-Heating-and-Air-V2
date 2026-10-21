@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowUpRight, Menu, Phone, X } from 'lucide-react'
 import { FaFacebookF, FaGoogle, FaInstagram, FaYelp } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -33,12 +34,12 @@ export function Header() {
         <span>Dalani<br />Heating & Air Conditioning</span>
       </Link>
       <nav className="main-nav" aria-label="Primary navigation">
-        <Link href="/">Home</Link>
-        <Link href="/about">About</Link>
-        <Link href="/services">Services</Link>
-        <Link href="/contact">Contact</Link>
+        <Link href="/" scroll>Home</Link>
+        <Link href="/about" scroll>About</Link>
+        <Link href="/services" scroll>Services</Link>
+        <Link href="/contact" scroll>Contact</Link>
       </nav>
-      <Link className="header-cta" href="/#estimate">Get an estimate <ArrowUpRight aria-hidden="true" /></Link>
+      <a className="header-cta" href="tel:7607839401"><Phone aria-hidden="true" /><span>(760) 783-9401</span></a>
       <button className="mobile-menu-trigger" type="button" aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => setMobileOpen(!mobileOpen)}>
         {mobileOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
       </button>
@@ -49,13 +50,13 @@ export function Header() {
           <button type="button" aria-label="Close navigation menu" onClick={closeMobileMenu}><X aria-hidden="true" /></button>
         </div>
         <nav>
-          <Link href="/" onClick={closeMobileMenu}>Home</Link>
-          <Link href="/about" onClick={closeMobileMenu}>About</Link>
-          <Link href="/services" onClick={closeMobileMenu}>Services</Link>
-          <Link href="/contact" onClick={closeMobileMenu}>Contact</Link>
+          <Link href="/" scroll onClick={closeMobileMenu}>Home</Link>
+          <Link href="/about" scroll onClick={closeMobileMenu}>About</Link>
+          <Link href="/services" scroll onClick={closeMobileMenu}>Services</Link>
+          <Link href="/contact" scroll onClick={closeMobileMenu}>Contact</Link>
         </nav>
         <div className="mobile-menu-footer">
-          <a href="tel:6195550148"><Phone aria-hidden="true" /> Call now</a>
+          <a href="tel:7607839401"><Phone aria-hidden="true" /> (760) 783-9401</a>
           <Link className="mobile-menu-cta" href="/#estimate" onClick={closeMobileMenu}>Get an estimate <ArrowUpRight aria-hidden="true" /></Link>
         </div>
       </aside>
@@ -121,7 +122,7 @@ export function Footer() {
         <p className="eyebrow">Dalani Heating & Air Conditioning</p>
         <h2>Reliable heating &amp; cooling.</h2>
         <div className="footer-contact">
-          <a href="tel:6195550148"><Phone aria-hidden="true" /> (619) 555-0148</a>
+          <a href="tel:7607839401"><Phone aria-hidden="true" /> (760) 783-9401</a>
           <p>Serving San Diego County<br />Mon–Sat · 8am–5pm<br />Sunday · Closed</p>
         </div>
         <SocialLinks />
@@ -159,9 +160,15 @@ export function FaqSection() {
     ['Do you work on existing systems?', 'Yes. We service and maintain many existing heating and air conditioning systems, including central air, heat pumps and mini-splits.'],
     ['Who will come to my home?', 'Chris, the owner and technician, handles every visit personally. You will always know who is showing up.'],
   ]
-  return <section className="faq-section container-wide"><div className="faq-intro"><p className="eyebrow">Common questions</p><h2>Before you<br /><em>call, you may wonder.</em></h2><p>Still have a question? Call directly and we&apos;ll be glad to help.</p><a className="text-link" href="tel:6195550148">(619) 555-0148 <ArrowUpRight aria-hidden="true" /></a></div><div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></section>
+  return <section className="faq-section container-wide"><div className="faq-intro"><p className="eyebrow">Common questions</p><h2>Before you<br /><em>call, you may wonder.</em></h2><p>Still have a question? Call directly and we&apos;ll be glad to help.</p><a className="text-link" href="tel:7607839401">(760) 783-9401 <ArrowUpRight aria-hidden="true" /></a></div><div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></section>
 }
 
 export function Shell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [pathname])
+
   return <><a className="skip-link" href="#main-content">Skip to content</a><Header /><div id="main-content">{children}</div><Footer /></>
 }
