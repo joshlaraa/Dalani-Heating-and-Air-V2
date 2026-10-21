@@ -1,4 +1,11 @@
 import { Phone, Mail, MapPin } from 'lucide-react'
+import type { Metadata } from 'next'
 import { FaqSection, OperationalHours, Shell, SocialLinks } from '@/components/site-shell'
 import { ContactForm } from '@/components/contact-form'
+
+export const metadata: Metadata = {
+  title: 'Contact Dalani Heating & Air Conditioning',
+  description: 'Contact Dalani Heating & Air Conditioning for straightforward HVAC guidance and estimates in San Diego County.',
+}
+
 export default function ContactPage() { return <Shell><main className="inner-page"><section className="inner-hero container-wide"><p className="eyebrow">Get in touch</p><h1>Let&apos;s make your<br />home comfortable.</h1><p>Tell us a little about what&apos;s going on. We&apos;ll get back to you to schedule a visit and provide a clear, no-pressure estimate.</p></section><section className="contact-grid container-wide"><ContactForm /><aside className="contact-aside"><div className="contact-aside-group contact-aside-contact"><p className="eyebrow">Prefer to talk?</p><a href="tel:7607839401"><Phone aria-hidden="true" /><span>(760) 783-9401</span></a><a href="mailto:hello@dalanihvac.com"><Mail aria-hidden="true" /><span>hello@dalanihvac.com</span></a></div><div className="contact-aside-group"><p className="eyebrow">Operational hours</p><OperationalHours /></div><div className="contact-aside-group"><p className="eyebrow">Service area</p><p><MapPin aria-hidden="true" /> San Diego County, from La Jolla to Chula Vista and everywhere in between.</p></div><div className="contact-aside-group contact-aside-social"><p className="eyebrow">Find Dalani</p><SocialLinks /></div></aside></section><FaqSection /></main></Shell> }

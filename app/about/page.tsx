@@ -1,5 +1,11 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { ArrowUpRight } from 'lucide-react'
 import { EstimateCta, Shell } from '@/components/site-shell'
+
+export const metadata: Metadata = {
+  title: 'About Dalani Heating & Air Conditioning',
+  description: 'Meet the family-owned San Diego HVAC team behind Dalani Heating & Air Conditioning.',
+}
 
 export default function AboutPage() { return <Shell><main className="inner-page"><section className="inner-hero container-wide"><p className="eyebrow">About Dalani Heating & Air Conditioning</p><h1>Family values.<br />Comfort that lasts.</h1><p>Local expertise, honest guidance, and quality work for every kind of project.</p></section><section className="about-story container-wide"><div className="about-story-heading"><p className="section-kicker">THE DALANI STORY</p><h2>Comfort built on family values.</h2></div><div className="about-story-copy"><p className="large-copy">Reliable, high-quality heating and cooling for homes and businesses—delivered with the care you would expect from a neighbor.</p><p>Dalani is locally owned and operated, serving residential, new construction, and commercial customers. Our name honors our daughters and the values that guide every project: honesty, dedication, and integrity.</p><p>When you choose Dalani, you are choosing a team committed to doing every job right the first time.</p><Link className="text-link" href="/contact">Start a conversation <ArrowUpRight aria-hidden="true" /></Link></div></section><section className="about-values container-wide"><div><p className="section-kicker">WHAT YOU CAN EXPECT</p><h2>Personal service, from the first call to the final walkthrough.</h2></div><div className="about-value-grid"><article><span>01</span><h3>One point of contact</h3><p>Talk directly with the person responsible for your project.</p></article><article><span>02</span><h3>Clear recommendations</h3><p>Understand your options before any work begins.</p></article><article><span>03</span><h3>Work with pride</h3><p>Get thoughtful workmanship we would trust in our own home.</p></article></div></section><EstimateCta title="Ready for a second opinion?" text="If your system needs attention, start with a straightforward conversation and an on-site estimate." /></main></Shell> }

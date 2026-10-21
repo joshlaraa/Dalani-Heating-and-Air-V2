@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { ArrowUpRight, Menu, Phone, X } from 'lucide-react'
-import { FaFacebookF, FaGoogle, FaInstagram, FaYelp } from 'react-icons/fa'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { usePathname } from 'next/navigation'
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const menuTriggerRef = useRef<HTMLButtonElement>(null)
+  const mobileMenuRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 24)
@@ -25,12 +26,47 @@ export function Header() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const closeMobileMenu = () => setMobileOpen(false)
+  useEffect(() => {
+    if (!mobileOpen) return
+
+    const firstFocusable = mobileMenuRef.current?.querySelector<HTMLElement>('a, button')
+    firstFocusable?.focus()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileOpen(false)
+        menuTriggerRef.current?.focus()
+        return
+      }
+      if (event.key !== 'Tab' || !mobileMenuRef.current) return
+
+      const focusable = [...mobileMenuRef.current.querySelectorAll<HTMLElement>('a, button')]
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [mobileOpen])
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false)
+    menuTriggerRef.current?.focus()
+  }
 
   return (
     <header className={`site-header${isScrolled ? ' is-scrolled' : ''}`}>
       <Link className="brand" href="/" aria-label="Dalani Heating & Air Conditioning home">
-        <img className="brand-logo" src="/dalani-icon.svg" alt="" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="brand-logo" src="/dalani-icon.svg" alt="" width="32" height="32" />
         <span>Dalani<br />Heating & Air Conditioning</span>
       </Link>
       <nav className="main-nav" aria-label="Primary navigation">
@@ -40,11 +76,11 @@ export function Header() {
         <Link href="/contact" scroll>Contact</Link>
       </nav>
       <a className="header-cta" href="tel:7607839401"><Phone aria-hidden="true" /><span>(760) 783-9401</span></a>
-      <button className="mobile-menu-trigger" type="button" aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => setMobileOpen(!mobileOpen)}>
+      <button ref={menuTriggerRef} className="mobile-menu-trigger" type="button" aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => setMobileOpen(!mobileOpen)}>
         {mobileOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
       </button>
       {mobileOpen && <div className="mobile-menu-backdrop" aria-hidden="true" onClick={closeMobileMenu} />}
-      <aside id="mobile-navigation" className={`mobile-menu${mobileOpen ? ' is-open' : ''}`} aria-label="Mobile navigation" aria-hidden={!mobileOpen} inert={!mobileOpen ? true : undefined}>
+      <aside ref={mobileMenuRef} id="mobile-navigation" className={`mobile-menu${mobileOpen ? ' is-open' : ''}`} aria-label="Mobile navigation" aria-hidden={!mobileOpen} inert={!mobileOpen ? true : undefined}>
         <div className="mobile-menu-header">
           <span>Menu</span>
           <button type="button" aria-label="Close navigation menu" onClick={closeMobileMenu}><X aria-hidden="true" /></button>
@@ -64,29 +100,16 @@ export function Header() {
   )
 }
 
-function SocialIcon({ name }: { name: 'Google' | 'Yelp' | 'Instagram' | 'Facebook' }) {
-  if (name === 'Google') return <FaGoogle aria-hidden="true" />
-  if (name === 'Yelp') return <FaYelp aria-hidden="true" />
-  if (name === 'Instagram') return <FaInstagram aria-hidden="true" />
-  return <FaFacebookF aria-hidden="true" />
-}
-
 export function SocialLinks() {
-  const socialNetworks = ['Google', 'Yelp', 'Instagram', 'Facebook'] as const
-
-  return (
-    <div className="social-links" aria-label="Social media">
-      {socialNetworks.map((name) => (
-        <span className="social-link" title={name} aria-label={name} role="img" key={name}>
-          <SocialIcon name={name} />
-        </span>
-      ))}
-    </div>
-  )
+  return <p className="social-coming-soon">Social profiles coming soon.</p>
 }
 
 export function OperationalHours() {
-  const [today, setToday] = useState<number | null>(null)
+  const today = useSyncExternalStore(
+    () => () => {},
+    () => new Date().getDay(),
+    () => null,
+  )
   const hours = [
     ['Monday', '8am–5pm', 1],
     ['Tuesday', '8am–5pm', 2],
@@ -96,10 +119,6 @@ export function OperationalHours() {
     ['Saturday', '8am–5pm', 6],
     ['Sunday', 'Closed', 0],
   ] as const
-
-  useEffect(() => {
-    setToday(new Date().getDay())
-  }, [])
 
   return (
     <div className="operational-hours" aria-label="Operational hours">
@@ -170,5 +189,5 @@ export function Shell({ children }: { children: React.ReactNode }) {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [pathname])
 
-  return <><a className="skip-link" href="#main-content">Skip to content</a><Header /><div id="main-content">{children}</div><Footer /></>
+  return <><a className="skip-link" href="#main-content">Skip to content</a><Header /><div id="main-content" tabIndex={-1}>{children}</div><Footer /></>
 }

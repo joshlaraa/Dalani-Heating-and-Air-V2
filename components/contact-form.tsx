@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
-import { ArrowUpRight, CircleCheck } from 'lucide-react'
+import { ArrowUpRight, Wrench } from 'lucide-react'
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
@@ -12,7 +12,7 @@ export function ContactForm() {
   }
 
   if (submitted) {
-    return <div className="contact-form-success" role="status" aria-live="polite"><CircleCheck aria-hidden="true" /><h2>Thanks for reaching out.</h2><p>We&apos;ll get back to you within one business hour. Need help sooner? <a href="tel:7607839401">(760) 783-9401</a>.</p><button className="button button-outline-dark" type="button" onClick={() => setSubmitted(false)}>Send another message</button></div>
+    return <div className="contact-form-notice" role="status" aria-live="polite"><Wrench aria-hidden="true" /><h2>Online requests are coming soon.</h2><p>We&apos;re still connecting this form to our request system, so no information was sent. Please call <a href="tel:7607839401">(760) 783-9401</a> for help today.</p><button className="button button-outline-dark" type="button" onClick={() => setSubmitted(false)}>Send another message</button></div>
   }
 
   return <form className="contact-form" onSubmit={submit}>
