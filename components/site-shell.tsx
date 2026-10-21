@@ -5,6 +5,16 @@ import { ArrowUpRight, Menu, Phone, X } from 'lucide-react'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { usePathname } from 'next/navigation'
 
+function scrollToTop() {
+  const html = document.documentElement
+  const previousScrollBehavior = html.style.scrollBehavior
+  html.style.scrollBehavior = 'auto'
+  window.scrollTo(0, 0)
+  html.scrollTop = 0
+  document.body.scrollTop = 0
+  html.style.scrollBehavior = previousScrollBehavior
+}
+
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -59,21 +69,21 @@ export function Header() {
 
   const closeMobileMenu = () => {
     setMobileOpen(false)
-    menuTriggerRef.current?.focus()
+    menuTriggerRef.current?.focus({ preventScroll: true })
   }
 
   return (
     <header className={`site-header${isScrolled ? ' is-scrolled' : ''}`}>
-      <Link className="brand" href="/" aria-label="Dalani Heating & Air Conditioning home">
+      <Link className="brand" href="/" scroll={false} onClick={scrollToTop} aria-label="Dalani Heating & Air Conditioning home">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="brand-logo" src="/dalani-icon.svg" alt="" width="32" height="32" />
         <span>Dalani<br />Heating & Air Conditioning</span>
       </Link>
       <nav className="main-nav" aria-label="Primary navigation">
-        <Link href="/" scroll>Home</Link>
-        <Link href="/about" scroll>About</Link>
-        <Link href="/services" scroll>Services</Link>
-        <Link href="/contact" scroll>Contact</Link>
+        <Link href="/" scroll={false} onClick={scrollToTop}>Home</Link>
+        <Link href="/about" scroll={false} onClick={scrollToTop}>About</Link>
+        <Link href="/services" scroll={false} onClick={scrollToTop}>Services</Link>
+        <Link href="/contact" scroll={false} onClick={scrollToTop}>Contact</Link>
       </nav>
       <a className="header-cta" href="tel:7607839401"><Phone aria-hidden="true" /><span>(760) 783-9401</span></a>
       <button ref={menuTriggerRef} className="mobile-menu-trigger" type="button" aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => setMobileOpen(!mobileOpen)}>
@@ -86,10 +96,10 @@ export function Header() {
           <button type="button" aria-label="Close navigation menu" onClick={closeMobileMenu}><X aria-hidden="true" /></button>
         </div>
         <nav>
-          <Link href="/" scroll onClick={closeMobileMenu}>Home</Link>
-          <Link href="/about" scroll onClick={closeMobileMenu}>About</Link>
-          <Link href="/services" scroll onClick={closeMobileMenu}>Services</Link>
-          <Link href="/contact" scroll onClick={closeMobileMenu}>Contact</Link>
+          <Link href="/" scroll={false} onClick={() => { scrollToTop(); closeMobileMenu() }}>Home</Link>
+          <Link href="/about" scroll={false} onClick={() => { scrollToTop(); closeMobileMenu() }}>About</Link>
+          <Link href="/services" scroll={false} onClick={() => { scrollToTop(); closeMobileMenu() }}>Services</Link>
+          <Link href="/contact" scroll={false} onClick={() => { scrollToTop(); closeMobileMenu() }}>Contact</Link>
         </nav>
         <div className="mobile-menu-footer">
           <a href="tel:7607839401"><Phone aria-hidden="true" /> (760) 783-9401</a>
@@ -186,7 +196,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    if (window.location.hash) return
+
+    scrollToTop()
   }, [pathname])
 
   return <><a className="skip-link" href="#main-content">Skip to content</a><Header /><div id="main-content" tabIndex={-1}>{children}</div><Footer /></>
