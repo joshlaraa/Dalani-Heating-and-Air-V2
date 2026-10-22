@@ -400,7 +400,7 @@ body:has(.hero) .header-cta {
   color: var(--ink);
 }
 @media (max-width: 760px) {
-  .hero { min-height: 620px; padding-top: 110px; padding-bottom: 72px; }
+  .hero { min-height: 620px; padding-top: 140px; padding-bottom: 72px; }
 }
 
 /* Fixed responsive navigation */
@@ -576,10 +576,36 @@ body:has(.hero) .site-header.is-scrolled .header-cta {
 }
 .social-coming-soon { margin: 0; color: var(--muted); line-height: 1.5; }
 
+.mobile-phone-bar { display: none; }
+.brand { gap: 12px; }
+.brand-logo { width: 52px; height: 52px; flex-basis: 52px; }
+.brand-wordmark { display: grid; gap: 3px; line-height: 1; }
+.brand-wordmark strong { font-size: 22px; letter-spacing: -.055em; }
+.brand-wordmark small { font-size: 9px; letter-spacing: .075em; line-height: 1.1; text-transform: uppercase; white-space: nowrap; }
+
 @media (max-width: 760px) {
-  .site-header { height: 66px; padding: 0 18px; }
+  .site-header { height: 122px; padding: 44px 18px 0; align-items: center; }
+  .mobile-phone-bar {
+    position: absolute;
+    inset: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .01em;
+  }
+  .mobile-phone-bar svg { width: 17px; height: 17px; color: var(--lime); }
+  .site-header .brand { margin-right: auto; }
+  .brand-logo { width: 48px; height: 48px; flex-basis: 48px; }
+  .brand-wordmark strong { font-size: 21px; }
+  .brand-wordmark small { font-size: 8px; }
   .site-header .header-cta { display: inline-flex; order: 2; gap: 6px; width: auto; height: 42px; min-height: 42px; padding: 0 10px; border-radius: 4px; font-size: 11px; white-space: nowrap; }
-  .site-header .header-cta span { display: inline; }
+  .site-header .header-cta { display: none; }
   .mobile-menu-trigger {
     display: grid;
     place-items: center;
@@ -692,7 +718,7 @@ body:has(.hero) .site-header.is-scrolled .header-cta {
     color: #fff;
   }
   body:has(.hero) .site-header:not(.is-scrolled) .mobile-menu { color: #fff; }
-  .inner-page { padding-top: 66px; }
+  .inner-page { padding-top: 122px; }
   .about-story, .about-values { grid-template-columns: 1fr; gap: 42px; padding-top: 72px; padding-bottom: 72px; }
   .intro-grid { gap: 30px; }
   .intro-grid h2 { font-size: 46px; }

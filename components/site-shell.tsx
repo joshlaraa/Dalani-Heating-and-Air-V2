@@ -74,10 +74,14 @@ export function Header() {
 
   return (
     <header className={`site-header${isScrolled ? ' is-scrolled' : ''}`}>
+      <a className="mobile-phone-bar" href="tel:7607839401">
+        <Phone aria-hidden="true" />
+        <span>(760) 783-9401</span>
+      </a>
       <Link className="brand" href="/" scroll={false} onClick={scrollToTop} aria-label="Dalani Heating & Air Conditioning home">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="brand-logo" src="/dalani-icon.svg" alt="" width="32" height="32" />
-        <span>Dalani<br />Heating & Air Conditioning</span>
+        <img className="brand-logo" src="/dalani-icon.svg" alt="" width="52" height="52" />
+        <span className="brand-wordmark"><strong>Dalani</strong><small>Heating &amp; Air Conditioning</small></span>
       </Link>
       <nav className="main-nav" aria-label="Primary navigation">
         <Link href="/" scroll={false} onClick={scrollToTop}>Home</Link>
