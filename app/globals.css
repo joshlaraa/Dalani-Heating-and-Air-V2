@@ -257,6 +257,40 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   min-height: 96px;
   padding: 8px 10px;
 }
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.contact-form select {
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+.form-honeypot {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+}
+.form-error {
+  margin: 0;
+  color: #a33f31;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.form-spinner {
+  animation: form-spin 1s linear infinite;
+}
+@keyframes form-spin {
+  to { transform: rotate(360deg); }
+}
 .contact-form button {
   width: 100%;
   min-width: 0;
@@ -794,6 +828,9 @@ body:has(.hero) .site-header.is-scrolled .header-cta {
 @media (max-width: 760px) {
   .contact-form button {
     width: 100%;
+  }
+  .contact-form-row {
+    grid-template-columns: 1fr;
   }
 }
 
