@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowDown, ArrowUpRight, Check, Wind, Wrench, ThermometerSun } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Check, Star, Wind, Wrench, ThermometerSun } from 'lucide-react'
 import { EstimateCta, Shell } from '@/components/site-shell'
 import { EstimateForm } from '@/components/estimate-form'
 
@@ -7,6 +7,14 @@ const services = [
   { icon: Wind, number: '01', title: 'Air conditioning', copy: 'Repairs, replacement, and seasonal tune-ups that keep your home cool when San Diego heats up.' },
   { icon: ThermometerSun, number: '02', title: 'Heating', copy: 'Thoughtful furnace and heat pump service for comfortable, efficient winter mornings.' },
   { icon: Wrench, number: '03', title: 'Maintenance', copy: 'Preventive care that helps your system run quieter, cleaner, and longer.' },
+]
+
+const testimonials = [
+  { initials: 'JM', name: 'Jessica M.', location: 'Chula Vista', review: 'Our AC stopped working during the first real heat wave of the summer. Arturo found the issue quickly, explained the options, and got us cooling again without pushing a replacement.' },
+  { initials: 'DR', name: 'Daniel R.', location: 'San Diego', review: 'Arturo was on time, straightforward, and careful in our older North Park home. He gave us a fair estimate for the repair and left everything cleaner than he found it.' },
+  { initials: 'AL', name: 'Amanda L.', location: 'Encinitas', review: 'We had Dalani tune up our system before summer and the difference was immediate. Arturo took the time to walk us through what he checked instead of rushing through the visit.' },
+  { initials: 'MP', name: 'Mike P.', location: 'La Mesa', review: 'Our upstairs was barely getting any air. Arturo checked the ductwork, found the problem, and gave us a practical fix that made the whole house more comfortable.' },
+  { initials: 'SB', name: 'Sarah B.', location: 'Carlsbad', review: 'Dalani made replacing our old heat pump feel simple. Arturo answered every question, showed up when he said he would, and the new system has been running great.' },
 ]
 
 export default function Page() {
@@ -33,7 +41,32 @@ export default function Page() {
 
       <section className="dark-section"><div className="container-wide"><div className="section-label light"><span>02</span><span>WHAT WE DO</span></div><div className="service-heading"><h2>One home.<br />One honest estimate.</h2><p>Every home is different. That is why we visit first, understand what you need, and give you a clear estimate before any work begins.</p></div><div className="service-grid">{services.map(({ icon: Icon, ...service }) => <article className="service-card" key={service.number}><div className="service-top"><span>{service.number}</span><Icon aria-hidden="true" /></div><h3>{service.title}</h3><p>{service.copy}</p><Link href="/services" aria-label={`Learn more about ${service.title}`}>Learn more <ArrowUpRight aria-hidden="true" /></Link></article>)}</div></div></section>
 
-      <section className="proof-section container-wide"><div className="proof-card"><p className="eyebrow">The Dalani promise</p><h2>Clear answers.<br />Comfortable spaces.</h2><ul><li><Check aria-hidden="true" /> Owner-operated from start to finish</li><li><Check aria-hidden="true" /> Estimates before recommendations</li><li><Check aria-hidden="true" /> Proudly serving San Diego County</li></ul><Link className="button button-light" href="/#estimate">Let&apos;s talk <ArrowUpRight aria-hidden="true" /></Link></div><div className="proof-aside"><span>03</span><p>“I want every customer to feel like they called a neighbor—not a call center.”</p><small>— Chris, Owner</small></div></section><EstimateCta title="Need help with your comfort?" text="Tell us what is going on. We will come by, take a look, and give you a clear estimate for the work." />
+      <section className="proof-section container-wide"><div className="proof-card"><p className="eyebrow">The Dalani promise</p><h2>Clear answers.<br />Comfortable spaces.</h2><ul><li><Check aria-hidden="true" /> Owner-operated from start to finish</li><li><Check aria-hidden="true" /> Estimates before recommendations</li><li><Check aria-hidden="true" /> Proudly serving San Diego County</li></ul><Link className="button button-light" href="/#estimate">Let&apos;s talk <ArrowUpRight aria-hidden="true" /></Link></div><div className="proof-aside"><span>03</span><p>“I want every customer to feel like they called a neighbor—not a call center.”</p><small>— Arturo, Owner</small></div></section>
+
+      <section className="testimonials-section" aria-labelledby="testimonials-heading">
+        <div className="container-wide">
+          <div className="testimonials-heading">
+            <div><p className="eyebrow">From your neighbors</p><h2 id="testimonials-heading">Comfort you can count on.</h2></div>
+            <p>Honest work and clear communication, from one San Diego home to the next.</p>
+          </div>
+          <div className="testimonial-carousel">
+            <div className="testimonial-grid">
+              {[...testimonials, ...testimonials].map((testimonial, index) => (
+                <article className="testimonial-card" key={`${testimonial.name}-${index}`} aria-hidden={index >= testimonials.length}>
+                  <div className="testimonial-stars" aria-label="5 out of 5 stars">{Array.from({ length: 5 }, (_, index) => <Star key={index} aria-hidden="true" />)}</div>
+                  <p className="testimonial-review">“{testimonial.review}”</p>
+                  <div className="testimonial-author">
+                    <span className="testimonial-initials" aria-hidden="true">{testimonial.initials}</span>
+                    <span><strong>{testimonial.name}</strong><small>{testimonial.location} · Verified customer</small></span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <EstimateCta title="Need help with your comfort?" text="Tell us what is going on. We will come by, take a look, and give you a clear estimate for the work." />
     </main>
   </Shell>
 }

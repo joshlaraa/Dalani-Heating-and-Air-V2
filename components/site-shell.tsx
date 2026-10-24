@@ -191,7 +191,7 @@ export function FaqSection() {
     ['Do you provide free estimates?', 'Yes. We visit your home, assess the system and recommend the right next step before providing a clear estimate.'],
     ['What areas do you serve?', 'We serve homes throughout San Diego County, from La Jolla to Chula Vista and nearby communities.'],
     ['Do you work on existing systems?', 'Yes. We service and maintain many existing heating and air conditioning systems, including central air, heat pumps and mini-splits.'],
-    ['Who will come to my home?', 'Chris, the owner and technician, handles every visit personally. You will always know who is showing up.'],
+    ['Who will come to my home?', 'Arturo, the owner and technician, handles every visit personally. You will always know who is showing up.'],
   ]
   return <section className="faq-section container-wide"><div className="faq-intro"><p className="eyebrow">Common questions</p><h2>Before you<br /><em>call, you may wonder.</em></h2><p>Still have a question? Call directly and we&apos;ll be glad to help.</p><a className="text-link" href="tel:7607839401">(760) 783-9401 <ArrowUpRight aria-hidden="true" /></a></div><div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></section>
 }
